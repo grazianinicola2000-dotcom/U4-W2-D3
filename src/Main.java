@@ -42,7 +42,8 @@ public class Main {
         };
 
         ArrayList<Customer> customers = customerConstructor.get();
-//        customers.forEach(customer -> System.out.println(customer));
+        System.out.println("--------10 Random customer------------");
+        customers.forEach(customer -> System.out.println(customer));
 
 
         // EXERCISE 1
@@ -85,6 +86,10 @@ public class Main {
         List<Order> orderByDate = ordersOverTier2.stream().filter(order -> order.getOrderDate().isAfter(LocalDate.of(2026, 2, 16)) && order.getOrderDate().isBefore(LocalDate.of(2026, 3, 19))).toList();
         System.out.println("---------Orders done afeter 2026-02-16 and before 2026-02-19---------");
         orderByDate.forEach(order -> System.out.println(order));
+
+        List<Product> productsOfOrder = orderByDate.stream().flatMap(order -> order.getProducts().stream()).toList();
+        System.out.println("--------List of products ordered by tier 2 customer after 2026-02-16 anc before 2026-03-19-----------");
+        productsOfOrder.forEach(product -> System.out.println(product));
     }
 
     public static ArrayList<Product> newProducts(String category, String category2) {
