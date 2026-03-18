@@ -17,10 +17,6 @@ public class Customer {
 
 // METHODS
 
-    public String getName() {
-        return name;
-    }
-
     public int getTier() {
         return tier;
     }

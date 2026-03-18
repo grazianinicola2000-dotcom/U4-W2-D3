@@ -18,10 +18,6 @@ public class Product {
     }
     // METHODS
 
-    public String getName() {
-        return name;
-    }
-
     public String getCategory() {
         return category;
     }
@@ -33,10 +29,7 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
-
-    public long getId() {
-        return id;
-    }
+    
 
     @Override
     public String toString() {

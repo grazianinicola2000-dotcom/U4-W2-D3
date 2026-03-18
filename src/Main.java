@@ -3,6 +3,7 @@ import entities.Customer;
 import entities.Order;
 import entities.Product;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Supplier;
 
@@ -46,7 +47,8 @@ public class Main {
 
         // EXERCISE 1
         System.out.println("---------------ONLI BOOKS > 100$---------------");
-        List<Product> productBooks = products1.stream().filter(product -> Objects.equals(product.getCategory(), "books")).filter(product -> product.getPrice() > 100).toList();
+        List<Product> productBooks = productsList.stream().filter(product -> Objects.equals(product.getCategory(), "books") && product.getPrice() > 100)
+                .toList();
         productBooks.forEach(product -> System.out.println(product));
 
 
@@ -77,21 +79,23 @@ public class Main {
         boysFilter.forEach(product -> System.out.println(product));
 
         //EXERCISE 4
-        
+        List<Order> ordersOverTier2 = orders.stream().filter(order -> order.getCustomer().getTier() > 2).toList();
+        System.out.println("----------Orders by customer over tier 2---------------");
+        ordersOverTier2.forEach(order -> System.out.println(order));
+        List<Order> orderByDate = ordersOverTier2.stream().filter(order -> order.getOrderDate().isAfter(LocalDate.of(2026, 2, 16)) && order.getOrderDate().isBefore(LocalDate.of(2026, 3, 19))).toList();
+        System.out.println("---------Orders done afeter 2026-02-16 and before 2026-02-19---------");
+        orderByDate.forEach(order -> System.out.println(order));
     }
 
     public static ArrayList<Product> newProducts(String category, String category2) {
-        Supplier<ArrayList<Product>> productsConstructor1 = () -> {
-            ArrayList<Product> products = new ArrayList<>();
-            Random random = new Random();
-            Faker faker = new Faker(Locale.ITALIAN);
-            for (int i = 0; i < 2; i++) {
-                products.add(new Product(faker.commerce().productName(), category, Math.round(random.nextDouble(80, 120) * 100.0) / 100.0));
-                products.add(new Product(faker.commerce().productName(), category2, Math.round(random.nextDouble(80, 120) * 100.0) / 100.0));
-            }
-            return products;
-        };
-        return productsConstructor1.get();
+        ArrayList<Product> products = new ArrayList<>();
+        Random random = new Random();
+        Faker faker = new Faker(Locale.ITALIAN);
+        for (int i = 0; i < 2; i++) {
+            products.add(new Product(faker.commerce().productName(), category, Math.round(random.nextDouble(80, 120) * 100.0) / 100.0));
+            products.add(new Product(faker.commerce().productName(), category2, Math.round(random.nextDouble(80, 120) * 100.0) / 100.0));
+        }
+        return products;
     }
 
     public static Customer newCustomer() {
